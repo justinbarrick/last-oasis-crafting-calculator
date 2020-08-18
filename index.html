@@ -1,6 +1,7 @@
 <html>
   <head>
     <title>Last Oasis Crafting Time Calculator</title>
+    <meta name="description" content="Last Oasis Crafting Time Calculator"/>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -56,21 +57,22 @@
         <div class="col-4">
           <label>Item Quality</label>
         </div>
-        <div class="col-sm">
-          <input type="text" id="quality" value="0" class="form-control" />
+        <div class="col-1">
+          <label id="quality-label"></label>
+        </div>
+        <div class="col">
+          <input type="range" class="custom-range" min="0" max="100" id="quality" value="0" />
         </div>
       </div>
       <div class="row">
         <div class="col-4">
           <label>Number of craftsman modules</label>
         </div>
-        <div class="col-sm">
-          <input
-            type="text"
-            id="num_craftsman"
-            value="0"
-            class="form-control"
-          />
+        <div class="col-1">
+          <label id="num_craftsman-label"></label>
+        </div>
+        <div class="col">
+          <input type="range" class="custom-range" min="0" max="18" id="num_craftsman" value="0" />
         </div>
       </div>
 
@@ -83,7 +85,7 @@
     </div>
 
     <script type="text/javascript">
-      $("input").on("change", () => {
+      function crafting_time() {
         var crafting_minutes = parseInt($("#crafting_minutes").val());
         var crafting_seconds = parseInt($("#crafting_seconds").val());
         var quality = parseInt($("#quality").val());
@@ -98,8 +100,13 @@
         date.setSeconds(crafting_time);
         var timeString = date.toISOString().substr(11, 8);
 
-        $("#output").text(timeString);
-      });
+        $("#quality-label").text(quality)
+        $("#num_craftsman-label").text(num_craftsman)
+        $("#output").text(timeString)        
+      }
+
+      $("input").on("input", crafting_time)
+      $(document).ready(crafting_time)
     </script>
   </body>
 </html>

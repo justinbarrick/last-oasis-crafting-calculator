@@ -1,0 +1,105 @@
+<html>
+  <head>
+    <title>Last Oasis Crafting Time Calculator</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    
+    <div class="container">
+      <div class="row">
+        <h1>Last Oasis Crafting Time Calculator</h1>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <label>Base Crafting Time</label>
+        </div>
+        <div class="col">
+          <input
+            type="text"
+            id="crafting_minutes"
+            value="0"
+            class="form-control"
+          />
+        </div>
+        <div class="col">minutes</div>
+        <div class="col">
+          <input
+            type="text"
+            id="crafting_seconds"
+            value="0"
+            class="form-control"
+          />
+        </div>
+        <div class="col">seconds</div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <label>Item Quality</label>
+        </div>
+        <div class="col-sm">
+          <input type="text" id="quality" value="0" class="form-control" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <label>Number of craftsman modules</label>
+        </div>
+        <div class="col-sm">
+          <input
+            type="text"
+            id="num_craftsman"
+            value="0"
+            class="form-control"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+          <label>Total Crafting Time</label>
+        </div>
+        <div class="col" id="output"></div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      $("input").on("change", () => {
+        var crafting_minutes = parseInt($("#crafting_minutes").val());
+        var crafting_seconds = parseInt($("#crafting_seconds").val());
+        var quality = parseInt($("#quality").val());
+        var num_craftsman = parseInt($("#num_craftsman").val());
+
+        // total seconds
+        var crafting_time = crafting_minutes * 60 + crafting_seconds;
+        crafting_time = crafting_time * (1 + 0.15 * quality);
+        crafting_time = crafting_time * (1 - 0.05 * num_craftsman);
+
+        var date = new Date(0);
+        date.setSeconds(crafting_time);
+        var timeString = date.toISOString().substr(11, 8);
+
+        $("#output").text(timeString);
+      });
+    </script>
+  </body>
+</html>
